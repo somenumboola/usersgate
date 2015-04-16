@@ -4,11 +4,6 @@ abstract class Kohana_User_Core extends Kohana_User_Observed implements
     Kohana_Tools_Observed, 
     Kohana_User_Skeleton
 {
-    
-    public function __construct()
-    {
-        parent::__construct(array(), ArrayObject::STD_PROP_LIST);
-    }
 
     public function register()
     {

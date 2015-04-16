@@ -3,7 +3,31 @@
 abstract class Kohana_User_Observed extends ArrayObject
 {
     protected $_observers = array();
-
+    
+    public function __construct()
+    {
+        $className = Kohana::config('users.observers.name');
+        foreach (Kohana::config('users.observers.active') as $observerName) {
+            
+            if ( 
+                class_exists(
+                    $class = strtr(
+                        $className,
+                        array(
+                            ':class' => $observerName
+                        )
+                    )
+                )
+            ) {
+                $this->attach(new $class());
+            }
+            
+        }
+        
+        parent::__construct(array(), ArrayObject::STD_PROP_LIST);
+        
+    }
+    
     public function attach(Kohana_User_Observer $ob)
     {
         $this->_observers["{$ob}"] = $ob;
@@ -29,5 +53,45 @@ abstract class Kohana_User_Observed extends ArrayObject
         
         return $this;
     }
-    //put your code here
+    
+    public function offsetSet($index, $value)
+    {
+        $oldValue = $this->offsetExists($index) ? $this[$index] : null;
+        
+        parent::offsetSet($index, $value);
+        
+        $this->notify(
+            __FUNCTION__, 
+            array(
+                $index,
+                $value,
+                $oldValue
+            )
+        );
+    }
+    
+    public function offsetUnset($index)
+    {
+        $oldValue = $this->offsetExists($index) ? $this[$index] : null;
+        
+        parent::offsetUnset($index);
+        
+        $this->notify(
+            __FUNCTION__, 
+            array(
+                $index,
+                $oldValue
+            )
+        );
+    }
+    
+    public function exchangeArray()
+    {
+        throw new Kohana_Exception(
+            "Direct call of :method forbidden!", 
+            array(
+                ':method' => __METHOD__
+            )
+        );
+    }
 }
