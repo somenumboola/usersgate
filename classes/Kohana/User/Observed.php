@@ -85,7 +85,7 @@ abstract class Kohana_User_Observed extends ArrayObject
         );
     }
     
-    public function exchangeArray()
+    public function exchangeArray($input)
     {
         throw new Kohana_Exception(
             "Direct call of :method forbidden!", 
