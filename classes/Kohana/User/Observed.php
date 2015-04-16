@@ -6,8 +6,11 @@ abstract class Kohana_User_Observed extends ArrayObject
     
     public function __construct()
     {
-        $className = Kohana::config('users.observers.name');
-        foreach (Kohana::config('users.observers.active') as $observerName) {
+        $config = Kohana::$config
+            ->load('users')
+            ->get('observers', array());
+        $className = Arr::get($config, 'name', '');
+        foreach (Arr::get($config, 'active', array()) as $observerName) {
             
             if ( 
                 class_exists(
