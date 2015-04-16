@@ -4,4 +4,6 @@ interface Kohana_User_Observer extends Kohana_Tools_Observer, Kohana_User_Skelet
     
     function offsetSet($name, $newval, $oldval);
     function offsetUnset($name, $oldval);
+    
+    function __toString();
 }
