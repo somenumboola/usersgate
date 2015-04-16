@@ -1,20 +1,10 @@
-<?php
+<?php defined('SYSPATH') or die('No direct script access.'); 
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Core
- *
- * @author admin
- */
-class Kohana_User_Core extends Kohana_User_Observed implements 
+abstract class Kohana_User_Core extends Kohana_User_Observed implements 
     Kohana_Tools_Observed, 
     Kohana_User_Skeleton
 {
+
     public function register()
     {
         // Code
@@ -29,7 +19,6 @@ class Kohana_User_Core extends Kohana_User_Observed implements
     
     public function permissionManager()
     {
-        // Code
-        $this->notify(__FUNCTION__);
+        
     }
 }
