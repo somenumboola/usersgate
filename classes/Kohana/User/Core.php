@@ -1,9 +1,15 @@
 <?php defined('SYSPATH') or die('No direct script access.'); 
 
-class Kohana_User_Core extends Kohana_User_Observed implements 
+abstract class Kohana_User_Core extends Kohana_User_Observed implements 
     Kohana_Tools_Observed, 
     Kohana_User_Skeleton
 {
+    
+    public function __construct()
+    {
+        parent::__construct(array(), ArrayObject::STD_PROP_LIST);
+    }
+
     public function register()
     {
         // Code
@@ -18,7 +24,6 @@ class Kohana_User_Core extends Kohana_User_Observed implements
     
     public function permissionManager()
     {
-        // Code
-        $this->notify(__FUNCTION__);
+        
     }
 }
