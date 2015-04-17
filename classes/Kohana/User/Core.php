@@ -21,4 +21,14 @@ abstract class Kohana_User_Core extends Kohana_User_Observed implements
     {
         
     }
+    
+    /**
+     * Shortcut for User_Permission::factory()
+     * @see MODPATH/usersgate/classes/Kohana/User/Permission.php
+     * @param string $path
+     * @return bool|int
+     */
+    public function allowed($path) {
+        return User_Permission::factory($path, $this);
+    }
 }
