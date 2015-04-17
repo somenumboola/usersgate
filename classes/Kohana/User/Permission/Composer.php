@@ -4,6 +4,7 @@ class Kohana_User_Permission_Composer implements Iterator
 {
     protected $permissions = array();
     protected $entity;
+    protected $i = 0;
     
     /**
      * keymaker
@@ -87,6 +88,7 @@ class Kohana_User_Permission_Composer implements Iterator
         // Database writing
         // TODO: Apply database writing
         
+        $this->permissions[$key] = $p;
     }
     
     /**
@@ -98,6 +100,7 @@ class Kohana_User_Permission_Composer implements Iterator
     {
         // Database writing
         // TODO: Apply database writing
+        
     }
     
     /**
@@ -107,7 +110,7 @@ class Kohana_User_Permission_Composer implements Iterator
      */
     public function rewind() 
     {
-        return reset($this->permissions);
+        $this->i = 0;
     }
     
     /**
@@ -117,7 +120,7 @@ class Kohana_User_Permission_Composer implements Iterator
      */
     public function next() 
     {
-        return next($this->permissions);
+        $this->i++;
     }
     
     /**
@@ -127,7 +130,7 @@ class Kohana_User_Permission_Composer implements Iterator
      */
     public function current() 
     {
-        return current($this->permissions);
+        return Arr::get($this->permissions, $this->key());
     }
     
     /**
@@ -139,7 +142,7 @@ class Kohana_User_Permission_Composer implements Iterator
      */
     public function key() 
     {
-        return $this->current()->path;
+        return Arr::get(array_keys($this->permissions), $this->i, FALSE);
     }
     
     /**
@@ -149,7 +152,6 @@ class Kohana_User_Permission_Composer implements Iterator
      */
     public function valid()
     {
-        $clone = $this->permissions;
-        return !(current($this->permissions) == end($clone));
+        return !is_null($this->current());
     }
 }
