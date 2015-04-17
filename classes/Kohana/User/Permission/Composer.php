@@ -2,7 +2,7 @@
 
 class Kohana_User_Permission_Composer implements Iterator
 {
-    protected $permissions;
+    protected $permissions = array();
     protected $entity;
     
     /**

@@ -5,7 +5,16 @@ abstract class Kohana_User_Core extends Kohana_User_Observed implements
     Kohana_Tools_PermissionOwner,
     Kohana_User_Skeleton
 {
-
+    public function getIdentifier()
+    {
+        
+    }
+    
+    public function setIdentifier()
+    {
+        
+    }
+    
     public function register()
     {
         // Code
