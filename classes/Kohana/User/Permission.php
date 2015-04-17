@@ -12,6 +12,8 @@ class Kohana_User_Permission
      */
     const DIRECT_OWNERSHIP = 2;
     
+    public $path = '';
+    
     /**
      * factory
      * Creates instance of permission.
