@@ -3,6 +3,7 @@
 class Kohana_User_Permission_Composer implements Iterator
 {
     protected $permissions = array();
+    protected $iterator = array();
     protected $entity;
     protected $i = 0;
     
@@ -47,6 +48,7 @@ class Kohana_User_Permission_Composer implements Iterator
                 )
             );
         }
+               
         
         $this->entity = $entity;
         
@@ -110,7 +112,13 @@ class Kohana_User_Permission_Composer implements Iterator
      */
     public function rewind() 
     {
-        $this->i = 0;
+        return call_user_func_array(
+            array(
+                $this->iterator,
+                __FUNCTION__
+            ),
+            func_get_args()
+        );
     }
     
     /**
@@ -120,7 +128,13 @@ class Kohana_User_Permission_Composer implements Iterator
      */
     public function next() 
     {
-        $this->i++;
+        return call_user_func_array(
+            array(
+                $this->iterator,
+                __FUNCTION__
+            ),
+            func_get_args()
+        );
     }
     
     /**
@@ -130,7 +144,13 @@ class Kohana_User_Permission_Composer implements Iterator
      */
     public function current() 
     {
-        return Arr::get($this->permissions, $this->key());
+        return call_user_func_array(
+            array(
+                $this->iterator,
+                __FUNCTION__
+            ),
+            func_get_args()
+        );
     }
     
     /**
@@ -142,7 +162,13 @@ class Kohana_User_Permission_Composer implements Iterator
      */
     public function key() 
     {
-        return Arr::get(array_keys($this->permissions), $this->i, FALSE);
+        return call_user_func_array(
+            array(
+                $this->iterator,
+                __FUNCTION__
+            ),
+            func_get_args()
+        );
     }
     
     /**
@@ -152,6 +178,12 @@ class Kohana_User_Permission_Composer implements Iterator
      */
     public function valid()
     {
-        return !is_null($this->current());
+        return call_user_func_array(
+            array(
+                $this->iterator,
+                __FUNCTION__
+            ),
+            func_get_args()
+        );
     }
 }
