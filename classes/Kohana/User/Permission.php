@@ -37,6 +37,7 @@ class Kohana_User_Permission
     
     
     public function __construct($path) {
+        $this->path = $path;
         var_dump(User_Permission::explicate($path));
     }
     

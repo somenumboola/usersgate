@@ -3,7 +3,7 @@
 class Kohana_User_Permission_Composer implements Iterator
 {
     protected $permissions = array();
-    protected $iterator = array();
+    protected $iterator;
     protected $entity;
     protected $i = 0;
     
@@ -48,7 +48,8 @@ class Kohana_User_Permission_Composer implements Iterator
                 )
             );
         }
-               
+        
+        $this->iterator = new ArrayIterator($this->permissions);
         
         $this->entity = $entity;
         
@@ -91,6 +92,8 @@ class Kohana_User_Permission_Composer implements Iterator
         // TODO: Apply database writing
         
         $this->permissions[$key] = $p;
+        
+        $this->iterator = new ArrayIterator($this->permissions);
     }
     
     /**
@@ -103,6 +106,15 @@ class Kohana_User_Permission_Composer implements Iterator
         // Database writing
         // TODO: Apply database writing
         
+        $key = self::keymaker($this->entity, $p->path);
+        
+        if (isset($this->permissions[$key])) {
+            
+            unset($this->permissions[$key]);
+            
+        }
+        
+        $this->iterator = new ArrayIterator($this->permissions);
     }
     
     /**
