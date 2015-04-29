@@ -5,6 +5,9 @@ abstract class Kohana_User_Core extends Kohana_User_Observed implements
     Kohana_Tools_PermissionOwner,
     Kohana_User_Skeleton
 {
+    protected static $permissions = null;
+
+
     public function getIdentifier()
     {
         
@@ -34,7 +37,9 @@ abstract class Kohana_User_Core extends Kohana_User_Observed implements
      */
     public function permissions()
     {
-        return new Kohana_User_Permission_Composer($this);
+        return self::$permissions 
+            ? 
+            : self::$permissions = new Kohana_User_Permission_Composer($this);
     }
     
     /**
